@@ -142,4 +142,4 @@ do(X) :-
 % End Simple Shell
 
 /* handle undefined procedure */
-:- dynamic(trace/1).
+:- unknown(trace, fail).
