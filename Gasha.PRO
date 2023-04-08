@@ -4,50 +4,66 @@ game(genshin_impact):-
     collect_characters(yes),
     strong_storyline(yes),
     anime_graphics(yes),
-    fast_paced_gameplay(no),
-    free_to_play(yes),
-    single_player(yes),
-    casual_gameplay(yes).
+    strategic_gameplay(no),
+    pay_to_win(no),
+    multiplayer(yes),
+    competitive_gameplay(no).
 game(fate_grand_order):-
     collect_characters(yes),
     strong_storyline(yes),
     anime_graphics(yes),
     strategic_gameplay(yes),
-    pay_to_play(yes),
-    multiplayer(yes),
-    competitive_gameplay(yes).
+    pay_to_win(yes),
+    multiplayer(no),
+    competitive_gameplay(no).
 game(honkai_impact_3):-
     collect_characters(yes),
-    strong_storyline(no),
+    strong_storyline(yes),
     anime_graphics(yes),
-    fast_paced_gameplay(yes),
-    free_to_play(yes),
+    strategic_gameplay(no),
+    pay_to_win(no),
     multiplayer(yes),
     competitive_gameplay(yes).
 game(azur_lane):-
     collect_characters(yes),
     strong_storyline(no),
     anime_graphics(yes),
-    fast_paced_gameplay(yes),
-    free_to_play(yes),
-    multiplayer(yes),
-    casual_gameplay(yes).
+    strategic_gameplay(yes),
+    pay_to_win(no),
+    multiplayer(no),
+    competitive_gameplay(no).
 game(arknights):-
     collect_characters(yes),
     strong_storyline(no),
-    realistic_graphics(yes),
+    anime_graphics(yes),
     strategic_gameplay(yes),
-    pay_to_play(no),
-    single_player(yes),
+    pay_to_win(no),
+    multiplayer(yes), % See Multivariate Cooperation
     competitive_gameplay(no).
 game(guardian_tales):-
     collect_characters(yes),
     strong_storyline(yes),
-    realistic_graphics(no),
+    anime_graphics(yes),
     strategic_gameplay(yes),
-    free_to_play(yes),
-    single_player(yes),
-    casual_gameplay(yes).
+    pay_to_win(yes),
+    multiplayer(yes),
+    competitive_gameplay(yes).
+game(the_idolmaster_shiny_colors):- 
+    collect_characters(no), 
+    strong_storyline(no), 
+    anime_graphics(yes), 
+    strategic_gameplay(yes), 
+    pay_to_win(no), 
+    multiplayer(no), 
+    competitive_gameplay(yes).
+game(raid_shadow_legends):- 
+    collect_characters(yes), 
+    strong_storyline(yes), 
+    anime_graphics(no), 
+    strategic_gameplay(yes), 
+    pay_to_win(yes), 
+    multiplayer(yes), 
+    competitive_gameplay(yes).
 
 /* Characteristic rules */
 collect_characters(X):-
@@ -56,24 +72,14 @@ strong_storyline(X):-
     menuask(strong_storyline, X, [yes, no]).
 anime_graphics(X):-
     menuask(anime_graphics, X, [yes, no]).
-realistic_graphics(X):-
-    menuask(realistic_graphics, X, [yes, no]).
-fast_paced_gameplay(X):-
-    menuask(fast_paced_gameplay, X, [yes, no]).
 strategic_gameplay(X):-
     menuask(strategic_gameplay, X, [yes, no]).
-free_to_play(X):-
-    menuask(free_to_play, X, [yes, no]).
-pay_to_play(X):-
-    menuask(pay_to_play, X, [yes, no]).
-single_player(X):-
-    menuask(single_player, X, [yes, no]).
+pay_to_win(X):-
+    menuask(pay_to_win, X, [yes, no]).
 multiplayer(X):-
     menuask(multiplayer, X, [yes, no]).
 competitive_gameplay(X):-
     menuask(competitive_gameplay, X, [yes, no]).
-casual_gameplay(X):-
-    menuask(casual_gameplay, X, [yes, no]).
 
 /* Menuask */
 menuask(A, V, _) :-
@@ -83,7 +89,7 @@ menuask(A, V, _) :-
     known(_, A, V), 
     !, fail. % fail if false
 menuask(A, V, MenuList) :-
-    write('Do you prefer '), write(A), write('? '), nl,
+    write('Do you prefer '), write(A), write('?'), nl,
     write(MenuList), nl,
     write('Please answer yes or no.'), nl,
     read(X),
