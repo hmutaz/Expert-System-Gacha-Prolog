@@ -1,100 +1,76 @@
 % Start Rules (Knowledge Base)
 /* Knowledge Base */
-game(genshin_impact):-
-    collect_characters(yes),
-    strong_storyline(yes),
-    anime_graphics(yes),
-    strategic_gameplay(no),
-    pay_to_win(no),
-    multiplayer(yes),
-    competitive_gameplay(no).
-game(fate_grand_order):-
-    collect_characters(yes),
-    strong_storyline(yes),
-    anime_graphics(yes),
-    strategic_gameplay(yes),
-    pay_to_win(yes),
-    multiplayer(no),
-    competitive_gameplay(no).
-game(honkai_impact_3):-
-    collect_characters(yes),
-    strong_storyline(yes),
-    anime_graphics(yes),
-    strategic_gameplay(no),
-    pay_to_win(no),
-    multiplayer(yes),
-    competitive_gameplay(yes).
+game(blue_archive):-
+    waifu_game(yes),
+    gun_theme(yes),
+    cunny(yes).
+game(nikke):-
+    waifu_game(yes),
+    gun_theme(yes),
+    cunny(no),
+    idle_game(yes).
+game(girls_frontline):-
+    waifu_game(yes),
+    gun_theme(yes),
+    cunny(no),
+    idle_game(no).
+game(idolmaster_shiny_colors):-
+    waifu_game(yes),
+    gun_theme(no),
+    idol_game(yes).
 game(azur_lane):-
-    collect_characters(yes),
-    strong_storyline(no),
-    anime_graphics(yes),
-    strategic_gameplay(yes),
-    pay_to_win(no),
-    multiplayer(no),
-    competitive_gameplay(no).
+    waifu_game(yes),
+    gun_theme(no),
+    idol_game(no),
+    idle_game(yes).
+game(uma_musume_pretty_derby):-
+    waifu_game(yes),
+    gun_theme(no),
+    idol_game(no),
+    idle_game(no).
 game(arknights):-
-    collect_characters(yes),
-    strong_storyline(no),
-    anime_graphics(yes),
-    strategic_gameplay(yes),
-    pay_to_win(no),
-    multiplayer(yes), % See Multivariate Cooperation
-    competitive_gameplay(no).
-game(guardian_tales):-
-    collect_characters(yes),
-    strong_storyline(yes),
-    anime_graphics(yes),
-    strategic_gameplay(yes),
-    pay_to_win(yes),
-    multiplayer(yes),
-    competitive_gameplay(yes).
-game(the_idolmaster_shiny_colors):- 
-    collect_characters(no), 
-    strong_storyline(no), 
-    anime_graphics(yes), 
-    strategic_gameplay(yes), 
-    pay_to_win(no), 
-    multiplayer(no), 
-    competitive_gameplay(yes).
-game(raid_shadow_legends):- 
-    collect_characters(yes), 
-    strong_storyline(yes), 
-    anime_graphics(no), 
-    strategic_gameplay(yes), 
-    pay_to_win(yes), 
-    multiplayer(yes), 
-    competitive_gameplay(yes).
+    waifu_game(no),
+    kemonomimi(yes).
+game(fate_grand_order):-
+    waifu_game(no),
+    kemonomimi(no),
+    historical_characters(yes).
+game(genshin_impact):-
+    waifu_game(no),
+    kemonomimi(no),
+    historical_characters(no).
+    % See Multivariate Cooperation
 
 /* Characteristic rules */
-collect_characters(X):-
-    menuask(collect_characters, X, [yes, no]).
-strong_storyline(X):-
-    menuask(strong_storyline, X, [yes, no]).
-anime_graphics(X):-
-    menuask(anime_graphics, X, [yes, no]).
-strategic_gameplay(X):-
-    menuask(strategic_gameplay, X, [yes, no]).
-pay_to_win(X):-
-    menuask(pay_to_win, X, [yes, no]).
-multiplayer(X):-
-    menuask(multiplayer, X, [yes, no]).
-competitive_gameplay(X):-
-    menuask(competitive_gameplay, X, [yes, no]).
+waifu_game(X):-
+    menuask(waifu_game, X, [yes, no]).
+gun_theme(X):-
+    menuask(gun_theme, X, [yes, no]).
+kemonomimi(X):-
+    menuask(kemonomimi, X, [yes, no]).
+cunny(X):-
+    menuask(cunny, X, [yes, no]).
+idol_game(X):-
+    menuask(idol_game, X, [yes, no]).
+historical_characters(X):-
+    menuask(historical_characters, X, [yes, no]).
+idle_game(X):-
+    menuask(idle_game, X, [yes, no]).
 
 /* Menuask */
-menuask(A, V, _) :-
-    known(yes, A, V), % succeed if true
-    !.
-menuask(A, V, _) :-
-    known(_, A, V), 
-    !, fail. % fail if false
+menuask(A, V, _MenuList):-
+    known(A, yes, V), % succeed if true
+    !. % stop looking
+menuask(A, _V, _MenuList):-
+    known(A, _, __), % fail if false
+    !,
+    fail.
 menuask(A, V, MenuList) :-
-    write('Do you prefer '), write(A), write('?'), nl,
+    write('Do you like '), write(A), write('?'), nl,
     write(MenuList), nl,
-    write('Please answer yes or no.'), nl,
     read(X),
     check_val(X, A, V, MenuList),
-    asserta(known(yes, A, V)),
+    asserta( known(A, yes, X) ),
     X == V.
 
 /* Check input */
