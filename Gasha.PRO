@@ -34,11 +34,11 @@ game(arknights):-
 game(fate_grand_order):-
     waifu_game(no),
     kemonomimi(no),
-    historical_characters(yes).
+    historical_figures(yes).
 game(genshin_impact):-
     waifu_game(no),
     kemonomimi(no),
-    historical_characters(no).
+    historical_figures(no).
     % See Multivariate Cooperation
 
 /* Characteristic rules */
@@ -52,8 +52,8 @@ cunny(X):-
     menuask(cunny, X, [yes, no]).
 idol_game(X):-
     menuask(idol_game, X, [yes, no]).
-historical_characters(X):-
-    menuask(historical_characters, X, [yes, no]).
+historical_figures(X):-
+    menuask(historical_figures, X, [yes, no]).
 idle_game(X):-
     menuask(idle_game, X, [yes, no]).
 
